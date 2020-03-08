@@ -91,3 +91,109 @@ void main()
   fclose(wf);
 /*****************************/
 }
+
+填空
+#include  <stdio.h>
+#define   N   3
+int fun(int  (*a)[N])
+{ int  i,j,m1,m2,row,colum;
+  m1=m2=0;
+  for(i=0; i<N; i++)
+  { j=N-i-1;  m1+=a[i][i];  m2+=a[i][j];  }
+  if(m1!=m2) return  0;
+  for(i=0; i<N; i++) {
+/**********found**********/
+     row=colum= 0;
+     for(j=0; j<N; j++)
+     {  row+=a[i][j];  colum+=a[j][i];  }
+/**********found**********/
+     if( (row!=colum) || (row!=m1) ) return 0;
+  }
+/**********found**********/
+  return  1;
+}
+void main()
+{ int  x[N][N],i,j;
+  printf("Enter number for array:\n");
+  for(i=0; i<N; i++)
+    for(j=0; j<N; j++)  scanf("%d",&x[i][j]);
+  printf("Array:\n");
+  for(i=0; i<N; i++)
+  {  for(j=0; j<N; j++)  printf("%3d",x[i][j]);
+     printf("\n");
+  }
+  if(fun(x)) printf("The Array is a magic square.\n");
+  else printf("The Array isn't a magic square.\n");
+}
+
+填空#include  <stdlib.h>
+#include  <conio.h>
+#include  <stdio.h>
+double fun(int m)
+{
+  double t=1.0;
+  int i;
+  for(i=2;i<=m;i++)
+/*************found**************/
+      t-=1.0/i;
+/*************found**************/
+           return t;
+}
+void main()
+{int m;
+ system("CLS");
+ printf("\nPlease enter 1 integer numbers:\n");
+ scanf("%d",&m);
+ printf("\n\nThe result is %1f\n",
+ fun(m));
+}
+
+编程#include <stdio.h>
+#include <ctype.h>
+#include <conio.h>
+#include <stdlib.h>
+void fun (char *str)
+{
+  char *p=str;
+  while(*str!='\0')   ###这里不对啊，一维数组的名字就是代表首地址，不要瞎改！！！####
+  {
+	  if(*str!=' ')
+	  {*p=*str;
+	    p++;
+	  }
+	  str++;
+  }
+  *p='\0';
+}
+void main()
+{
+  char str[81];
+  char Msg[]="Input a string:";
+  int n;
+  FILE *out;
+  printf(Msg);
+  gets(str);
+  puts(str);
+  fun(str); 
+  printf("*** str: %s\n",str); 
+  /******************************/
+  out=fopen("out.dat","w");
+  fun(Msg);
+  fprintf(out,"%s",Msg);
+  fclose(out);
+  /******************************/
+}
+void fun (char *str)
+{
+int i=0;
+char *p=str;
+while(*p)
+{
+	if(*p!=' ')
+	{
+		str[i++]=*p;
+	}
+p++;
+}
+str[i]='\0';
+}
