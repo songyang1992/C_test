@@ -197,3 +197,176 @@ p++;
 }
 str[i]='\0';
 }
+填空
+#include  <stdio.h>
+double f1(double  x)
+{  return  x*x;  }
+double f2(double x, double y)
+{  return  x*y;  }
+double fun(double  a, double  b)
+{
+/**********found**********/
+  double (*f)();
+  double  r1, r2;
+/**********found**********/
+  f = f1 ; 
+  r1 = f(a);
+/**********found**********/
+  f = f2 ; 
+  r2 = (*f)(a, b);
+  return  r1 + r2;
+}
+void main()
+{ double  x1=5, x2=3, r;
+  r = fun(x1, x2);
+  printf("\nx1=%f,  x2=%f,  x1*x1+x1*x2=%f\n",x1, x2, r);
+}
+改错typedef struct aa
+{ int data;
+  struct aa *next;
+} NODE;
+int fun (NODE *h)
+{ int sum=0;
+  NODE *p;
+  p=h->next;
+/*************found**************/
+  while(p!=NULL)
+       { if(p->data%2==0)
+             sum+=p->data;
+/*************found**************/
+          p=p->next;
+       }
+  return sum;
+}
+NODE *creatlink(int n)
+{ 
+  NODE *h,*p,*s;
+  int i;
+  h=p=(NODE*)malloc(sizeof(NODE));
+  for(i=1;i<n;i++)
+  {
+	s=(NODE*)malloc(sizeof(NODE));
+	s->data=rand()%16;
+	s->next=p->next;
+	p->next=s;
+	p=p->next;
+  }
+  p->next=NULL;
+  return h;
+}
+void outlink(NODE *h)
+{ NODE  *p;
+  p=h->next;
+  printf("\n\n The LIST :\n\n HEAD");
+  while(p)
+    { printf("->%d",p->data); 
+      p=p->next;}
+  printf("\n");
+}
+void main()
+{ NODE *head; int sum;
+  system("CLS");
+  head=creatlink(10);
+  outlink(head);
+  sum=fun(head);
+  printf("\nSUM=%d",sum); 
+}
+编程（有错误）
+#include <stdio.h>
+#define N 80
+int fun(char *str)
+{
+	char *p,*q;
+	int flag=1;
+	p=str;
+	q=str;
+	while(q!='\0')
+	{
+	 q++;
+	}
+	q--;
+	while(p<q)
+	{
+	  if(*p!=*q)
+	  {
+	    flag=0;
+		break;
+	  }
+	  p++;
+	  q--;
+	}
+	return flag;
+}
+
+void main()
+{
+	 char s[N];
+	 FILE *out;
+         char *test[]={"1234321","123421","123321","abcdCBA"};
+	 int i;
+	 printf("Enter a string : ");
+	 gets(s);
+	 printf("\n\n");
+	 puts(s);
+	 if(fun(s))
+		printf("YES\n");
+	 else
+		printf("NO\n"); 
+	 /************************************/
+	 out=fopen("out.dat","w");
+	 for(i=0;i<4;i++)
+	 	if(fun(test[i]))
+			fprintf(out,"YES\n");
+		else
+			fprintf(out,"NO\n");
+	 fclose(out);
+	 /************************************/
+}
+
+编程（正确）
+#include <stdio.h>
+#define N 80
+int fun(char *str)
+{
+	
+	int flag=1;
+	int i,n=0;
+	while(str[n]!='\0')
+	{
+	 n++;
+	}
+	for(i=0;i<n;i++)
+	{
+	  if(str[i]!=str[n-i-1])
+	  {
+	    flag=0;
+		break;
+	  }
+	}
+	return flag;
+}
+
+void main()
+{
+	 char s[N];
+	 FILE *out;
+         char *test[]={"1234321","123421","123321","abcdCBA"};
+	 int i;
+	 printf("Enter a string : ");
+	 gets(s);
+	 printf("\n\n");
+	 puts(s);
+	 if(fun(s))
+		printf("YES\n");
+	 else
+		printf("NO\n"); 
+	 /************************************/
+	 out=fopen("out.dat","w");
+	 for(i=0;i<4;i++)
+	 	if(fun(test[i]))
+			fprintf(out,"YES\n");
+		else
+			fprintf(out,"NO\n");
+	 fclose(out);
+	 /************************************/
+}
