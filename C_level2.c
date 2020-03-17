@@ -370,3 +370,155 @@ void main()
 	 fclose(out);
 	 /************************************/
 }
+#填空
+#include  <stdio.h>
+#include  <stdlib.h>
+#define    N    6
+typedef struct node {
+  int  data;
+  struct node  *next;
+} NODE;
+void fun(NODE  *h)
+{ NODE  *p, *q;    int  t;
+/**********found**********/
+  p = h->next ;
+  while (p) {
+/**********found**********/
+     q = p->next ;
+     while (q) {
+/**********found**********/
+        if (p->data > q->data)
+        {  t = p->data;  p->data = q->data;  q->data = t;  }
+        q = q->next;
+    }
+    p = p->next;
+  }
+}
+NODE *creatlist(int  a[])
+{  NODE  *h,*p,*q;        int  i;
+  h = (NODE *)malloc(sizeof(NODE));
+  h->next = NULL;
+  for(i=0; i<N; i++)
+  {  q=(NODE *)malloc(sizeof(NODE));
+     q->data=a[i];
+     q->next = NULL;
+     if (h->next == NULL)  h->next = p = q;
+     else    {  p->next = q;  p = q;   }
+  }
+   return  h;
+}
+void outlist(NODE  *h)
+{ NODE  *p;
+  p = h->next;
+  if (p==NULL)  printf("The list is NULL!\n");
+  else
+  {  printf("\nHead  ");
+     do
+     {  printf("->%d", p->data); p=p->next;  }
+     while(p!=NULL);
+     printf("->End\n");
+  }
+}
+void main()
+{  NODE  *head;
+   int  a[N]= {0, 10, 4, 2, 8, 6 };
+   head=creatlist(a);
+   printf("\nThe original list:\n");
+   outlist(head);
+   fun(head);
+   printf("\nThe list after sorting :\n");
+   outlist(head);
+}
+#改错
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+typedef struct aa
+{ int data;
+  struct aa *next;
+} NODE;
+int fun (NODE *h)
+{ int max=-1;
+  NODE *p;
+/*************found**************/
+  p=h->next;
+  while(p)
+       { if(p->data>max)
+             max=p->data;
+/*************found**************/
+          p=p->next;
+       }
+  return max;
+}
+void outresult(int s, FILE *pf)
+{ fprintf(pf, "\nThe max in link :%d\n",s);
+}
+NODE *creatlink(int n, int m)
+{ NODE *h,*p,*s;
+  int i;
+  h=p=(NODE *)malloc(sizeof(NODE));
+  h->data=9999;
+  for(i=1;i<=n;i++)
+    { s=(NODE *) malloc(sizeof(NODE));
+      s->data=rand()%m; s->next=p->next;
+      p->next=s;  p=p->next;
+    }
+  p->next=NULL;
+  return h;
+}
+void outlink(NODE *h,FILE *pf)
+{ NODE  *p;
+  p=h->next;
+  fprintf(pf, "\n The LIST :\n\n HEAD");
+  while(p)
+    { fprintf(pf, "->%d",p->data); 
+  p=p->next;}
+  fprintf(pf, "\n");
+}
+void main()
+{ NODE *head; int m;
+  system("CLS");
+  head=creatlink(12,100);
+  outlink(head,stdout);
+  m=fun(head);
+  printf("\nThe RESULT :\n"); 
+  outresult(m,stdout);
+}
+#程序
+#include <stdio.h>
+void fun (int (*s)[10], int *b, int *n, int mm, int nn)
+{
+	int i,j;
+	for(i=0;i<mm;i++)
+  {
+	for(j=0;j<nn;j++)
+	{
+	b[(*n)++]=s[i][j];
+	}
+  }
+  
+}
+void main()
+{
+  FILE *wf;
+  int w[10][10]={{33,33,33,33},{44,44,44,44},{55,55,55,55}}, i, j;
+  int a[100]={0},n=0 ;
+  printf("The matrix:\n");
+  for (i=0; i<3; i++)
+    {for (j=0;j<4;j++)  
+        printf("%3d",w[i][j]);
+     printf("\n");
+    }
+  fun(w,a,&n,3,4);
+  printf("The A array:\n");
+  for(i=0; i<n; i++)  
+     printf("%3d",a[i]); 
+  printf("\n\n");
+/******************************/
+  wf=fopen("out.dat","w");
+  for(i=0; i<n; i++)  
+     fprintf(wf,"%3d",a[i]); 
+  fclose(wf);
+/*****************************/
+}
+
