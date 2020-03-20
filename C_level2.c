@@ -521,4 +521,112 @@ void main()
   fclose(wf);
 /*****************************/
 }
+填空
+#include <stdio.h>
+#include <string.h>
+#define N 6
+typedef struct
+{ char num[5];
+  double s;
+} STU;
 
+int fun(STU x[N], char p[][5])
+{
+  int n=0,i;
+  double ave=0.0;
+  for(i=0; i<N; i++) 
+/**********found**********/
+        ave+= x[i].s;
+  ave/=N;
+  for(i=0; i<N; i++)
+/**********found**********/
+       if(x[i].s > ave) 
+         {
+             strcpy(p[n],x[i].num);
+/**********found**********/
+              n++;
+         }
+    return(n); 
+}
+ main()
+{ int i,k;
+ STU a[N]={ "z100",78,"z101",92,"z102",77,"z103",87,"z104",66,"z105",85};
+ char b[N][5];
+ k=fun(a,b);
+ for(i=0; i<k;i++)
+        puts(b[i]);
+}
+改错
+#include <stdio.h>
+void fun( char *a,char *b,char *c)
+{  int i=0,j=0;
+   while( a[i]!='\0' && b[i]!='\0')
+   { 
+         c[j++]=a[i];
+/************found************/ 	   
+         if(b[i+1]!='\0') 
+	         c[j++]=b[i+1];
+         else
+/************found************/  
+	         break;    
+		 if (a[i+1]=='\0') 
+			 break;
+         i+=2;
+   }
+/************found************/
+   c[j]='\0';   
+}
+ main()
+{  char a[40]="asderty",b[40]="zxcvb",c[80];
+   fun(a,b,c);
+   puts(c);
+}
+编程
+#include <stdio.h>
+#define N  3
+#pragma warning(disable:4996)
+void NONO( );
+
+void fun( int a[N][N],int *p)
+{
+	int i,k=0;
+	for(i=0;i<N;i++)
+		{
+		p[k++]=2*a[i][i];
+		}
+	
+	for(i=0;i<N;i++)
+	 
+		{
+		p[k++]=3*a[i][N-i-1];
+		}
+	
+}
+main()
+ {   int a[N][N]={ 1,5,7,2,6,8,3,4,9};
+     int b[2*N],i;
+     fun(a,b);
+     for(i=0;i<2*N;i++)
+            printf("%d,",b[i]);
+     NONO();
+}
+
+void NONO( )
+{   int a[N][N];
+     int b[2*N],i,j,k;
+     FILE *rf, *wf;
+
+     rf = fopen("in.dat","r") ;
+     wf = fopen("out.dat","w") ;
+     for(k=0; k<9;k++) {
+           for(i=0;i<N;i++)
+                for(j=0;j<N;j++)
+                     fscanf(rf,"%d,",&a[i][j]);
+         fun(a,b);
+         for(i=0;i<2*N;i++)
+              fprintf(wf, "%d,",b[i]);
+         fprintf(wf, "\n");
+     }
+     fclose(rf);
+     fclose(wf);
+}
