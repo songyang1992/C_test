@@ -630,3 +630,109 @@ void NONO( )
      fclose(rf);
      fclose(wf);
 }
+填空
+#include  <stdlib.h>
+#include  <ctype.h>
+char *fun(char  *s)
+{ int  i, j, k, n;    char  *p, *t;
+  n=strlen(s)+1;
+  t=(char*)malloc(n*sizeof(char));
+  p=(char*)malloc(n*sizeof(char));
+  j=0; k=0;
+  for(i=0; i<n; i++)
+  {  if(isdigit(s[i])) {
+/**********found**********/
+       p[j]=s[i]; j++;}
+     else
+     {  t[k]=s[i]; k++; }
+   }
+/**********found**********/
+   for(i=0; i<k; i++) p[j+i]= t[i];
+   p[j+k]=0;
+/**********found**********/
+   return p;
+}
+void main()
+{ char  s[80];
+  printf("Please input: ");  scanf("%s",s);
+  printf("\nThe result is: %s\n",fun(s));
+}
+
+改错
+#include <stdio.h>
+#include <string.h>
+
+void fun( char  *a, char  *b, char  *c )
+{
+  int   i , j;     char   ch;
+  i = 0;    j = strlen(b)-1;
+/************found************/
+  while ( i < j )
+  {   ch = b[i]; b[i] = b[j]; b[j] = ch;
+      i++;    j--;
+  }
+  while ( *a || *b ) {
+/************found************/
+     if ( *a )
+       { *c = *a;  c++; a++; }
+     if ( *b )
+       { *c = *b;  c++; b++; }
+  }
+  *c = 0;
+}
+
+void main()
+{
+  char   s1[100],s2[100],t[200];
+  printf("\nEnter s1 string : ");scanf("%s",s1);
+  printf("\nEnter s2 string : ");scanf("%s",s2);
+  fun( s1, s2, t );
+  printf("\nThe result is : %s\n", t );
+}
+编程
+#include <stdio.h>
+#include <string.h>
+
+void fun(char  *s, char  t[])
+{
+	int i=0,j=0;
+	
+	while(s[i]!='\0')
+	
+	{ 
+	   if(!(i%2==0 && s[i]%2 != 0))
+	
+	   t[j++]=s[i];
+
+	   i++;
+	}
+	  
+	t[j]='\0';
+
+}
+
+void main()
+{
+  char   s[100], t[100];void NONO ();
+  printf("\nPlease enter string S:"); scanf("%s", s);
+  fun(s, t);
+  printf("\nThe result is: %s\n", t);
+  NONO();
+}
+
+void NONO ()
+{/* 本函数用于打开文件，输入数据，调用函数，输出数据，关闭文件。 */
+  char s[100], t[100] ;
+  FILE *rf, *wf ;
+  int i ;
+
+  rf = fopen("in.dat","r") ;
+  wf = fopen("out.dat","w") ;
+  for(i = 0 ; i < 10 ; i++) {
+    fscanf(rf, "%s", s) ;
+    fun(s, t) ;
+    fprintf(wf, "%s\n", t) ;
+  }
+  fclose(rf) ;
+  fclose(wf) ;
+}
